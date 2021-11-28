@@ -55,12 +55,12 @@
 <div class="row">
     <div class="col-12">
         <div class="card px-3 py-3">
-            <h3>List Data Dinas</h3>
-            <small>Dashboard / Data dinas</small>
+            <h3>List Data Perlengkapan Kaki</h3>
+            <small>Dashboard / Data Perlengkapan Kaki</small>
         </div>
         <div class="card px-3 py-3 shadow">
             <div class="card-header">
-                <h4>Data dinas</h4>
+                <h4>Data Perlengkapan Kaki</h4>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>

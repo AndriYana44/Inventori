@@ -1,23 +1,19 @@
 <?php
     if(isset($_POST['save']) || isset($_POST['update'])) {
-        $dinas = $_POST['dinas'];
-        $sabhara = $_POST['sabhara'];
-        $lantas = $_POST['lantas'];
-        $jaket_staf_pria = $_POST['jaket_staf_pria'];
-        $jaket_staf_wanita = $_POST['jaket_staf_wanita'];
-        $baju_sabhara_pria = $_POST['baju_sabhara_pria'];
-        $baju_sabhara_wanita = $_POST['baju_sabhara_wanita'];
-        $baju_provos_pria = $_POST['baju_provos_pria'];
-        $baju_provos_wanita = $_POST['baju_provos_wanita'];
-
-        var_dump($dinas);
+        $dinas     = $_POST['dinas'];
+        $jilbab_polwan  = $_POST['jilbab_polwan'];
+        $jilbab_pns  = $_POST['jilbab_pns'];
+        $jilbab_reskrim = $_POST['jilbab_reskrim'];
+        $topi_gol_1 = $_POST['topi_gol_1'];
+        $topi_gol_2 = $_POST['topi_gol_2'];
+        $topi_gol_3 = $_POST['topi_gol_3'];
 
         if(isset($_POST['save'])) {
-            $sql = "INSERT INTO tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita'";
+            $sql = "INSERT INTO tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3'";
         }else {
             $id = $_POST['id'];
             var_dump($id);
-            $sql = "UPDATE tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita' WHERE id=$id";
+            $sql = "UPDATE tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3' WHERE id=$id";
         }
 
         $query = $conn->query($sql);
@@ -35,7 +31,7 @@
 
     if(isset($_POST['delete'])) {
         $id = $_POST['id'];
-        $sql = "DELETE FROM tb_perlengkapan_badan WHERE id=$id";
+        $sql = "DELETE FROM tb_perlengkapan_kepala WHERE id=$id";
         $query = $conn->query($sql);
 
         if($query) {
@@ -48,10 +44,10 @@
         unset($_SESSION['SUCCESS']);
     }
 
-    $sql_join_table = "SELECT tb_perlengkapan_badan.*, tb_dinas.dinas, tb_dinas.id as dinas_id 
-                        FROM tb_perlengkapan_badan 
+    $sql_join_table = "SELECT tb_perlengkapan_kepala.*, tb_dinas.dinas, tb_dinas.id as dinas_id 
+                        FROM tb_perlengkapan_kepala 
                         INNER JOIN tb_dinas 
-                        ON tb_dinas.id = tb_perlengkapan_badan.id_dinas";
+                        ON tb_dinas.id = tb_perlengkapan_kepala.id_dinas";
 
     $data = $conn->query($sql_join_table);
     $dinas = $conn->query("SELECT * FROM tb_dinas");
@@ -60,12 +56,12 @@
 <div class="row">
     <div class="col-12">
         <div class="card px-3 py-3">
-            <h3>List Data Perlengkapan Badan</h3>
-            <small>Dashboard / Data Perlengkapan Badan</small>
+            <h3>List Data Perlengkapan Kepala</h3>
+            <small>Dashboard / Data Perlengkapan Kepala</small>
         </div>
         <div class="card px-3 py-3 shadow">
             <div class="card-header">
-                <h4>Data Perlengkapan Badan</h4>
+                <h4>Data Perlengkapan Kepala</h4>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>
@@ -75,19 +71,17 @@
                 <?= $flash_success ?>
             </div>
             <?php } ?>
-                <table class="table table-bordered table-stripped" id="table-dinas">
+                <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Dinas</th>
-                            <th>Jas Hujan Sabhara</th>
-                            <th>Jas Hujan Lantas</th>
-                            <th>Jaket Staf Pria</th>
-                            <th>Jaket Staf Wanita</th>
-                            <th>Baju Sabhara Pria</th>
-                            <th>Baju Sabhara Wanita</th>
-                            <th>Baju Provos Pria</th>
-                            <th>Baju Provos Wanita</th>
+                            <th>Jilbab Polwan</th>
+                            <th>Jilbab PNS</th>
+                            <th>Jilbab Reskrim</th>
+                            <th>Topi PNS Gol 1</th>
+                            <th>Topi PNS Gol 2</th>
+                            <th>Topi PNS Gol 3</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -99,14 +93,12 @@
                         <tr>
                             <td><?= $no++ ?></td>
                             <td><?= $item['dinas'] ?></td>
-                            <td><?= $item['sabhara'] ?></td>
-                            <td><?= $item['lantas'] ?></td>
-                            <td><?= $item['jaket_staf_pria'] ?></td>
-                            <td><?= $item['jaket_staf_wanita'] ?></td>
-                            <td><?= $item['baju_sabhara_wanita'] ?></td>
-                            <td><?= $item['baju_sabhara_pria'] ?></td>
-                            <td><?= $item['baju_provos_wanita'] ?></td>
-                            <td><?= $item['baju_provos_pria'] ?></td>
+                            <td><?= $item['jilbab_polwan'] ?></td>
+                            <td><?= $item['jilbab_pns'] ?></td>
+                            <td><?= $item['jilbab_reskrim'] ?></td>
+                            <td><?= $item['topi_gol_1'] ?></td>
+                            <td><?= $item['topi_gol_2'] ?></td>
+                            <td><?= $item['topi_gol_3'] ?></td>
                             <td>
                                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdit<?= $item['id'] ?>">Edit</button>
                                 <form action="" method="post" class="d-inline">
@@ -147,36 +139,28 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="sabhara">Jas Hujan Sabhara</label>
-                        <input type="number" name="sabhara" class="form-control" autocomplete="off">
+                        <label for="jilbab_polwan">Jilbab Polwan</label>
+                        <input type="number" name="jilbab_polwan" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="lantas">Jas Hujan Lantas</label>
-                        <input type="number" name="lantas" class="form-control" autocomplete="off">
+                        <label for="jilbab_pns">Jilbab PNS</label>
+                        <input type="number" name="jilbab_pns" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="jaket_staf_pria">Jaket Staf Pria</label>
-                        <input type="number" name="jaket_staf_pria" class="form-control" autocomplete="off">
+                        <label for="jilbab_reskrim">Jilbab Reskrim</label>
+                        <input type="number" name="jilbab_reskrim" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="jaket_staf_wanita">Jaket Staf Wanita</label>
-                        <input type="number" name="jaket_staf_wanita" class="form-control" autocomplete="off">
+                        <label for="topi_gol_1">Topi PNS Gol 1</label>
+                        <input type="number" name="topi_gol_1" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="baju_sabhara_pria">Baju Sabhara Pria</label>
-                        <input type="number" name="baju_sabhara_pria" class="form-control" autocomplete="off">
+                        <label for="topi_gol_2">Topi PNS Gol 2</label>
+                        <input type="number" name="topi_gol_2" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="baju_sabhara_wanita">Baju Sabhara Wanita</label>
-                        <input type="number" name="baju_sabhara_wanita" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="baju_provos_pria">Baju Provos Pria</label>
-                        <input type="number" name="baju_provos_pria" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="baju_provos_wanita">Baju Provos Pria</label>
-                        <input type="number" name="baju_provos_wanita" class="form-control" autocomplete="off">
+                        <label for="topi_gol_3">Topi PNS Gol 3</label>
+                        <input type="number" name="topi_gol_3" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -194,6 +178,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form action="" method="post">
+                <input type="number" name="id" value="<?= $item['id'] ?>" hidden>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -211,41 +196,33 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="sabhara">Jas Hujan Sabhara</label>
-                        <input type="number" name="sabhara" value="<?= $item['sabhara'] ?>" class="form-control" autocomplete="off">
+                        <label for="jilbab_polwan">Jilbab Polwan</label>
+                        <input type="number" name="jilbab_polwan" value="<?= $item['jilbab_polwan'] ?>" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="lantas">Jas Hujan Lantas</label>
-                        <input type="number" name="lantas" value="<?= $item['lantas'] ?>" class="form-control" autocomplete="off">
+                        <label for="jilbab_pns">Jilbab PNS</label>
+                        <input type="number" name="jilbab_pns" value="<?= $item['jilbab_pns'] ?>" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="jaket_staf_pria">Jaket Staf Pria</label>
-                        <input type="number" name="jaket_staf_pria" value="<?= $item['jaket_staf_pria'] ?>" class="form-control" autocomplete="off">
+                        <label for="jilbab_reskrim">Jilbab Reskrim</label>
+                        <input type="number" name="jilbab_reskrim" value="<?= $item['jilbab_reskrim'] ?>" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="jaket_staf_wanita">Jaket Staf Wanita</label>
-                        <input type="number" name="jaket_staf_wanita" value="<?= $item['jaket_staf_wanita'] ?>" class="form-control" autocomplete="off">
+                        <label for="topi_gol_1">Topi PNS Gol 1</label>
+                        <input type="number" name="topi_gol_1" value="<?= $item['topi_gol_1'] ?>" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="baju_sabhara_pria">Baju Sabhara Pria</label>
-                        <input type="number" name="baju_sabhara_pria" value="<?= $item['baju_sabhara_pria'] ?>" class="form-control" autocomplete="off">
+                        <label for="topi_gol_2">Topi PNS Gol 2</label>
+                        <input type="number" name="topi_gol_2" value="<?= $item['topi_gol_2'] ?>" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="baju_sabhara_wanita">Baju Sabhara Wanita</label>
-                        <input type="number" name="baju_sabhara_wanita" value="<?= $item['baju_sabhara_wanita'] ?>" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="baju_provos_pria">Baju Provos Pria</label>
-                        <input type="number" name="baju_provos_pria" value="<?= $item['baju_provos_pria'] ?>" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="baju_provos_wanita">Baju Provos Pria</label>
-                        <input type="number" name="baju_provos_wanita" value="<?= $item['baju_provos_wanita'] ?>" class="form-control" autocomplete="off">
+                        <label for="topi_gol_3">Topi PNS Gol 3</label>
+                        <input type="number" name="topi_gol_3" value="<?= $item['topi_gol_3'] ?>" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button type="submit" name="save" class="btn btn-primary">Save</button>
+                    <button type="submit" name="update" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

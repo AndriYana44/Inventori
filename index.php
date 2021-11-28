@@ -108,11 +108,13 @@ if($_SESSION['login'] != 'login') {
                     </li>
                     <li class="nav-label">Laporan</li>
                     <li>
-                        <a href="?page=laporan" aria-expanded="false">
+                        <a href="?page=laporan_pdf" aria-expanded="false">
                             <i class="icon icon-app-store"></i>
                             <span class="nav-text">Laporan PDF</span>
                         </a>
-                        <a href="?page=laporan" aria-expanded="false">
+                    </li>
+                    <li>
+                        <a href="?page=laporan_excel" aria-expanded="false">
                             <i class="icon icon-app-store"></i>
                             <span class="nav-text">Laporan Excel</span>
                         </a>
@@ -125,8 +127,6 @@ if($_SESSION['login'] != 'login') {
             <!-- row -->
             <div class="container-fluid">
                 <?php
-
-
                     if(!is_null($_GET['page'])) {
                         $page = $_GET['page'];
                         require_once "./page/$page.php";

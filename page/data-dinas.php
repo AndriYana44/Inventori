@@ -60,7 +60,7 @@
                 <?= $flash_success ?>
             </div>
             <?php } ?>
-                <table class="table table-bordered table-stripped" id="table-dinas">
+                <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>No</th>

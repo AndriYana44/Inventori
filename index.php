@@ -128,6 +128,7 @@ if($_SESSION['login'] != 'login') {
             <div class="container-fluid">
                 <?php
                     if(!is_null($_GET['page'])) {
+                        error_reporting(0);
                         $page = $_GET['page'];
                         require_once "./page/$page.php";
                     }

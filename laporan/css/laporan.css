@@ -53,3 +53,26 @@ table tr:last-child td:last-child {
     -webkit-border-bottom-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
+
+.ttd {
+    position: relative;
+    width: 100%;
+}
+.kabag, .kasubag {
+    margin-top: 20px;
+    line-height: -5px;
+    text-align: center;
+    width: 30%;
+}
+.kabag-name, .kasubag-name {
+    text-decoration: underline;
+    margin-top: 50px;
+}
+.kasubag {
+    clear: both; 
+    margin: 0pt; 
+    padding: 0pt;
+    float: right;
+    position: absolute;
+    margin-top: -128px;
+}

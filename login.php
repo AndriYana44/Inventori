@@ -8,7 +8,7 @@
 
     if(isset($_POST['login'])) {
         $user = $_POST['username'];
-        $pass = $_POST['password'];
+        $pass = md5($_POST['password']);
 
         $sql = "SELECT * FROM users WHERE username='$user' AND password='$pass'";
         $query = $conn->query($sql);

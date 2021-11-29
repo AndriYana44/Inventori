@@ -16,15 +16,15 @@ if($_SESSION['login'] != 'login') {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Logistik Polres</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/mages/favicon.png">
-    <link rel="stylesheet" href="./assets/vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets/vendor/owl-carousel/css/owl.theme.default.min.css">
-    <link href="./assets/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="./assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendor/datatables/css/jquery.dataTables.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="asset/mages/favicon.png">
+    <link rel="stylesheet" href="./asset/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="./asset/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="./asset/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="./asset/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="asset/vendor/datatables/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./fontawesome/css/all.min.csss">
     <link rel="stylesheet" href="./select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="./assets/css/app.css">
+    <link rel="stylesheet" href="./asset/css/app.css">
 </head>
 
 <body>
@@ -39,7 +39,7 @@ if($_SESSION['login'] != 'login') {
     <div id="main-wrapper">
         <div class="nav-header text-center">
             <a href="?page=dashboard" class="brand-logo">
-                <img class="logo-abbr" src="../assets/images/logo-polres.png" alt="logo">
+                <img class="logo-abbr" src="../asset/images/logo-polres.png" alt="logo">
                 <span>&nbsp; Logistik Polres</span> 
             </a>
 
@@ -137,37 +137,37 @@ if($_SESSION['login'] != 'login') {
             </div>
         </div>
     </div>
-    <script src="./assets/vendor/global/global.min.js"></script>
-    <script src="./assets/js/quixnav-init.js"></script>
-    <script src="./assets/js/custom.min.js"></script>
+    <script src="./asset/vendor/global/global.min.js"></script>
+    <script src="./asset/js/quixnav-init.js"></script>
+    <script src="./asset/js/custom.min.js"></script>
 
 
     <!-- Vectormap -->
-    <script src="./assets/vendor/raphael/raphael.min.js"></script>
-    <script src="./assets/vendor/morris/morris.min.js"></script>
+    <script src="./asset/vendor/raphael/raphael.min.js"></script>
+    <script src="./asset/vendor/morris/morris.min.js"></script>
 
 
-    <script src="./assets/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="./assets/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="./asset/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="./asset/vendor/chart.js/Chart.bundle.min.js"></script>
 
-    <script src="./assets/vendor/gaugeJS/dist/gauge.min.js"></script>
+    <script src="./asset/vendor/gaugeJS/dist/gauge.min.js"></script>
 
     <!--  flot-chart js -->
-    <script src="./assets/vendor/flot/jquery.flot.js"></script>
-    <script src="./assets/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="./asset/vendor/flot/jquery.flot.js"></script>
+    <script src="./asset/vendor/flot/jquery.flot.resize.js"></script>
 
     <!-- Owl Carousel -->
-    <script src="./assets/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+    <script src="./asset/vendor/owl-carousel/js/owl.carousel.min.js"></script>
 
     <!-- Counter Up -->
-    <script src="./assets/vendor/jqvmap/js/jquery.vmap.min.js"></script>
-    <script src="./assets/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-    <script src="./assets/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+    <script src="./asset/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="./asset/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="./asset/vendor/jquery.counterup/jquery.counterup.min.js"></script>
     
-    <script src="assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
-    <script src="./assets/js/dashboard/dashboard-1.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./asset/js/dashboard/dashboard-1.js"></script>
+    <script src="./asset/js/app.js"></script>
     <script src="./select2/dist/js/select2.min.js"></script>
 </body>
 

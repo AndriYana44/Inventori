@@ -13,6 +13,7 @@
             $baju_provos_pria = ($_POST['baju_provos_pria'] == "") ? '0' : $_POST['baju_provos_pria'];
             $baju_provos_wanita = ($_POST['baju_provos_wanita'] == "") ? '0' : $_POST['baju_provos_wanita'];
 
+            
             if(isset($_POST['save'])) {
                 $sql = "INSERT INTO tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita'";
             }else {
@@ -210,6 +211,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form action="" method="post">
+                <input type="number" name="id" value="<?= $item['id'] ?>" hidden>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -261,7 +263,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button type="submit" name="save" class="btn btn-primary">Save</button>
+                    <button type="submit" name="update" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

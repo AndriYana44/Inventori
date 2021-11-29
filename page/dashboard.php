@@ -59,7 +59,7 @@ $data_perlengkapan_kepala = $query4->fetch_assoc();
         <div class="card card-dashboard" data-target="?page=data-perlengkapan-kepala">
             <div class="stat-widget-two card-body">
                 <div class="stat-content">
-                    <div class="stat-text"><i class="fa fa-area-chart"></i> Task Completed</div>
+                    <div class="stat-text"><i class="fa fa-area-chart"></i> Perlengkapan Kepala</div>
                     <div class="stat-digit"><?= $data_perlengkapan_kepala['jumlah'] ?></div>
                 </div>
                 <div class="progress">

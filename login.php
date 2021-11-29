@@ -12,7 +12,7 @@
 
         $sql = "SELECT * FROM users WHERE username='$user' AND password='$pass'";
         $query = $conn->query($sql);
-        $row = $query->fetch_row();
+        $row = $query->fetch_assoc();
 
         if($row > 0) {
             $_SESSION['login'] = 'login';

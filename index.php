@@ -39,7 +39,7 @@ if($_SESSION['login'] != 'login') {
     <div id="main-wrapper">
         <div class="nav-header text-center">
             <a href="?page=dashboard" class="brand-logo">
-                <img class="logo-abbr" src="../asset/images/logo-polres.png" alt="logo">
+                <img class="logo-abbr" src="./asset/images/logo-polres.png" alt="logo">
                 <span>&nbsp; Logistik Polres</span> 
             </a>
 
@@ -69,7 +69,7 @@ if($_SESSION['login'] != 'login') {
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="../logout.php" class="dropdown-item">
+                                    <a href="./logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>

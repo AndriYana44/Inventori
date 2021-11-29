@@ -2,8 +2,8 @@
     if(isset($_POST['save-dinas']) || isset($_POST['update-dinas'])) {
         $dinas = $_POST['dinas'];
 
-        $validation = $conn->query("SELECT * FROM tb_dinas WHERE dinas = '$dinas'");
-        if(is_null($validation->fetch_assoc())) {
+        // $validation = $conn->query("SELECT * FROM tb_dinas WHERE dinas = '$dinas'");
+        // if(is_null($validation->fetch_assoc())) {
             $jml_polri  = ($_POST['polri'] == "") ? '0' : $_POST['polri'];
             $jml_pns    = ($_POST['pns'] == "") ? '0' : $_POST['pns'];
 
@@ -25,10 +25,10 @@
                     $flash_success = "Data berhasil diubah";
                 }
             }
-        }else {
-            $_SESSION['ERROR'] = time();
-            $flash_error = 'Data dinas sudah ada!';
-        }
+        // }else {
+        //     $_SESSION['ERROR'] = time();
+        //     $flash_error = 'Data dinas sudah ada!';
+        // }
     }
 
     if(isset($_POST['delete-dinas'])) {

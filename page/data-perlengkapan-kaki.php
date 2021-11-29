@@ -2,8 +2,8 @@
     if(isset($_POST['save']) || isset($_POST['update'])) {
         $dinas = $_POST['dinas'];
 
-        $validation = $conn->query("SELECT * FROM tb_perlengkapan_kaki WHERE id_dinas = $dinas");
-        if(is_null($validation->fetch_assoc())) {
+        // $validation = $conn->query("SELECT * FROM tb_perlengkapan_kaki WHERE id_dinas = $dinas");
+        // if(is_null($validation->fetch_assoc())) {
             $pdl_staf = ($_POST['pdl_staf'] == "") ? '0' : $_POST['pdl_staf'];
             $olahraga = ($_POST['olahraga'] == "") ? '0' : $_POST['olahraga'];
             $kaos_kaki = ($_POST['kaos_kaki'] == "") ? '0' : $_POST['kaos_kaki'];
@@ -26,10 +26,10 @@
                     $flash_success = "Data berhasil diubah";
                 }
             }
-        }else {
-            $_SESSION['ERROR'] = time();
-            $flash_error = 'Data dinas sudah ada!';
-        }
+        // }else {
+        //     $_SESSION['ERROR'] = time();
+        //     $flash_error = 'Data dinas sudah ada!';
+        // }
     }
 
     if(isset($_POST['delete'])) {

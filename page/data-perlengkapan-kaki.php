@@ -1,30 +1,34 @@
 <?php
     if(isset($_POST['save']) || isset($_POST['update'])) {
-        $dinas     = $_POST['dinas'];
-        $pdl_staf  = $_POST['pdl_staf'];
-        $olahraga  = $_POST['olahraga'];
-        $kaos_kaki = $_POST['kaos_kaki'];
+        $dinas = $_POST['dinas'];
 
-        var_dump($dinas);
+        $validation = $conn->query("SELECT * FROM tb_perlengkapan_kaki WHERE id_dinas = $dinas");
+        if(is_null($validation->fetch_assoc())) {
+            $pdl_staf = ($_POST['pdl_staf'] == "") ? '0' : $_POST['pdl_staf'];
+            $olahraga = ($_POST['olahraga'] == "") ? '0' : $_POST['olahraga'];
+            $kaos_kaki = ($_POST['kaos_kaki'] == "") ? '0' : $_POST['kaos_kaki'];
 
-        if(isset($_POST['save'])) {
-            $sql = "INSERT INTO tb_perlengkapan_kaki SET id_dinas='$dinas', pdl_staf='$pdl_staf', olahraga='$olahraga', kaos_kaki='$kaos_kaki'";
-        }else {
-            $id = $_POST['id'];
-            var_dump($id);
-            $sql = "UPDATE tb_perlengkapan_kaki SET id_dinas='$dinas', pdl_staf='$pdl_staf', olahraga='$olahraga', kaos_kaki='$kaos_kaki' WHERE id=$id";
-        }
-
-        $query = $conn->query($sql);
-
-        if($query) {
             if(isset($_POST['save'])) {
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil ditambahkan";
-            }else{
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil diubah";
+                $sql = "INSERT INTO tb_perlengkapan_kaki SET id_dinas='$dinas', pdl_staf='$pdl_staf', olahraga='$olahraga', kaos_kaki='$kaos_kaki'";
+            }else {
+                $id = $_POST['id'];
+                $sql = "UPDATE tb_perlengkapan_kaki SET id_dinas='$dinas', pdl_staf='$pdl_staf', olahraga='$olahraga', kaos_kaki='$kaos_kaki' WHERE id=$id";
             }
+
+            $query = $conn->query($sql);
+
+            if($query) {
+                if(isset($_POST['save'])) {
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil ditambahkan";
+                }else{
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil diubah";
+                }
+            }
+        }else {
+            $_SESSION['ERROR'] = time();
+            $flash_error = 'Data dinas sudah ada!';
         }
     }
 
@@ -41,6 +45,9 @@
 
     if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
         unset($_SESSION['SUCCESS']);
+    }
+    if (isset($_SESSION['ERROR']) && (time() - $_SESSION['ERROR'] > 3)) {
+        unset($_SESSION['ERROR']);
     }
 
     $sql_join_table = "SELECT tb_perlengkapan_kaki.*, tb_dinas.dinas, tb_dinas.id as dinas_id 
@@ -65,11 +72,20 @@
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>
             <div class="card-body">
+
+            <!-- flash messages -->
             <?php if(isset($_SESSION['SUCCESS'])) { ?>
             <div class="alert alert-success text-dark flash" role="alert">
                 <?= $flash_success ?>
             </div>
             <?php } ?>
+            <?php if(isset($_SESSION['ERROR'])) { ?>
+            <div class="alert alert-danger text-dark flash" role="alert">
+                <?= $flash_error ?>
+            </div>
+            <?php } ?>
+            <!-- end flash -->
+
                 <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
                     <thead>
                         <tr>

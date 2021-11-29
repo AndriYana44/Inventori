@@ -1,31 +1,38 @@
 <?php
+
     if(isset($_POST['save']) || isset($_POST['update'])) {
-        $dinas     = $_POST['dinas'];
-        $jilbab_polwan  = $_POST['jilbab_polwan'];
-        $jilbab_pns  = $_POST['jilbab_pns'];
-        $jilbab_reskrim = $_POST['jilbab_reskrim'];
-        $topi_gol_1 = $_POST['topi_gol_1'];
-        $topi_gol_2 = $_POST['topi_gol_2'];
-        $topi_gol_3 = $_POST['topi_gol_3'];
+        $dinas = (is_null($_POST['dinas'])) ? '0' : $_POST['dinas'];
 
-        if(isset($_POST['save'])) {
-            $sql = "INSERT INTO tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3'";
-        }else {
-            $id = $_POST['id'];
-            var_dump($id);
-            $sql = "UPDATE tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3' WHERE id=$id";
-        }
-
-        $query = $conn->query($sql);
-
-        if($query) {
+        $validation = $conn->query("SELECT * FROM tb_perlengkapan_kepala WHERE id_dinas = $dinas");
+        if(is_null($validation->fetch_assoc())) {
+            $jilbab_polwan  = ($_POST['jilbab_polwan'] == "") ? '0' : $_POST['jilbab_polwan'];
+            $jilbab_pns  = ($_POST['jilbab_pns'] == "") ? '0' : $_POST['jilbab_pns'];
+            $jilbab_reskrim = ($_POST['jilbab_reskrim'] == "") ? '0' : $_POST['jilbab_reskrim'];
+            $topi_gol_1 =  ($_POST['topi_gol_1'] == "") ? '0' : $_POST['topi_gol_1'];
+            $topi_gol_2 = ($_POST['topi_gol_2'] == "") ? '0' : $_POST['topi_gol_2'];
+            $topi_gol_3 = ($_POST['topi_gol_3'] == "") ? '0' : $_POST['topi_gol_3'];
+    
             if(isset($_POST['save'])) {
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil ditambahkan";
-            }else{
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil diubah";
+                $sql = "INSERT INTO tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3'";
+            }else {
+                $id = $_POST['id'];
+                $sql = "UPDATE tb_perlengkapan_kepala SET id_dinas='$dinas', jilbab_polwan='$jilbab_polwan', jilbab_pns='$jilbab_pns', jilbab_reskrim='$jilbab_reskrim', topi_gol_1='$topi_gol_1', topi_gol_2='$topi_gol_2', topi_gol_3='$topi_gol_3' WHERE id=$id";
             }
+    
+            $query = $conn->query($sql);
+    
+            if($query) {
+                if(isset($_POST['save'])) {
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil ditambahkan";
+                }else{
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil diubah";
+                }
+            }
+        }else {
+            $_SESSION['ERROR'] = time();
+            $flash_error = 'Data dinas sudah ada!';
         }
     }
 
@@ -42,6 +49,10 @@
 
     if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
         unset($_SESSION['SUCCESS']);
+    }
+
+    if (isset($_SESSION['ERROR']) && (time() - $_SESSION['ERROR'] > 3)) {
+        unset($_SESSION['ERROR']);
     }
 
     $sql_join_table = "SELECT tb_perlengkapan_kepala.*, tb_dinas.dinas, tb_dinas.id as dinas_id 
@@ -66,11 +77,20 @@
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>
             <div class="card-body">
+
+            <!-- flash messages -->
             <?php if(isset($_SESSION['SUCCESS'])) { ?>
             <div class="alert alert-success text-dark flash" role="alert">
                 <?= $flash_success ?>
             </div>
             <?php } ?>
+            <?php if(isset($_SESSION['ERROR'])) { ?>
+            <div class="alert alert-danger text-dark flash" role="alert">
+                <?= $flash_error ?>
+            </div>
+            <?php } ?>
+            <!-- end flash -->
+
                 <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
                     <thead>
                         <tr>
@@ -103,7 +123,7 @@
                                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdit<?= $item['id'] ?>">Edit</button>
                                 <form action="" method="post" class="d-inline">
                                     <input type="number" name="id" value="<?= $item['id'] ?>" hidden>
-                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                    <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Lanjukan menghapus data?')">Delete</button>
                                 </form>
                             </td>
                         </tr>

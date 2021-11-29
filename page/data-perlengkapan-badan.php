@@ -1,35 +1,39 @@
 <?php
     if(isset($_POST['save']) || isset($_POST['update'])) {
         $dinas = $_POST['dinas'];
-        $sabhara = $_POST['sabhara'];
-        $lantas = $_POST['lantas'];
-        $jaket_staf_pria = $_POST['jaket_staf_pria'];
-        $jaket_staf_wanita = $_POST['jaket_staf_wanita'];
-        $baju_sabhara_pria = $_POST['baju_sabhara_pria'];
-        $baju_sabhara_wanita = $_POST['baju_sabhara_wanita'];
-        $baju_provos_pria = $_POST['baju_provos_pria'];
-        $baju_provos_wanita = $_POST['baju_provos_wanita'];
 
-        var_dump($dinas);
+        $validation = $conn->query("SELECT * FROM tb_perlengkapan_kepala WHERE id_dinas = $dinas");
+        if(is_null($validation->fetch_assoc())) {
+            $sabhara = ($_POST['sabhara'] == "") ? '0' : $_POST['sabhara'];
+            $lantas = ($_POST['lantas'] == "") ? '0' : $_POST['lantas'];
+            $jaket_staf_pria = ($_POST['jaket_staf_pria'] == "") ? '0' : $_POST['jaket_staf_pria'];
+            $jaket_staf_wanita = ($_POST['jaket_staf_wanita'] == "") ? '0' : $_POST['jaket_staf_wanita'];
+            $baju_sabhara_pria = ($_POST['baju_sabhara_pria'] == "") ? '0' : $_POST['baju_sabhara_pria'];
+            $baju_sabhara_wanita = ($_POST['baju_sabhara_wanita'] == "") ? '0' : $_POST['baju_sabhara_wanita'];
+            $baju_provos_pria = ($_POST['baju_provos_pria'] == "") ? '0' : $_POST['baju_provos_pria'];
+            $baju_provos_wanita = ($_POST['baju_provos_wanita'] == "") ? '0' : $_POST['baju_provos_wanita'];
 
-        if(isset($_POST['save'])) {
-            $sql = "INSERT INTO tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita'";
-        }else {
-            $id = $_POST['id'];
-            var_dump($id);
-            $sql = "UPDATE tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita' WHERE id=$id";
-        }
-
-        $query = $conn->query($sql);
-
-        if($query) {
             if(isset($_POST['save'])) {
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil ditambahkan";
-            }else{
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil diubah";
+                $sql = "INSERT INTO tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita'";
+            }else {
+                $id = $_POST['id'];
+                $sql = "UPDATE tb_perlengkapan_badan SET id_dinas='$dinas', sabhara='$sabhara', lantas='$lantas', jaket_staf_pria='$jaket_staf_pria', jaket_staf_wanita='$jaket_staf_wanita', baju_sabhara_pria='$baju_sabhara_pria', baju_sabhara_wanita='$baju_sabhara_wanita', baju_provos_pria='$baju_provos_pria', baju_provos_wanita='$baju_provos_wanita' WHERE id=$id";
             }
+
+            $query = $conn->query($sql);
+
+            if($query) {
+                if(isset($_POST['save'])) {
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil ditambahkan";
+                }else{
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil diubah";
+                }
+            }
+        }else {
+            $_SESSION['ERROR'] = time();
+            $flash_error = 'Data dinas sudah ada!';
         }
     }
 
@@ -46,6 +50,9 @@
 
     if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
         unset($_SESSION['SUCCESS']);
+    }
+    if (isset($_SESSION['ERROR']) && (time() - $_SESSION['ERROR'] > 3)) {
+        unset($_SESSION['ERROR']);
     }
 
     $sql_join_table = "SELECT tb_perlengkapan_badan.*, tb_dinas.dinas, tb_dinas.id as dinas_id 
@@ -70,11 +77,20 @@
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>
             <div class="card-body">
+
+            <!-- flash messages -->
             <?php if(isset($_SESSION['SUCCESS'])) { ?>
             <div class="alert alert-success text-dark flash" role="alert">
                 <?= $flash_success ?>
             </div>
             <?php } ?>
+            <?php if(isset($_SESSION['ERROR'])) { ?>
+            <div class="alert alert-danger text-dark flash" role="alert">
+                <?= $flash_error ?>
+            </div>
+            <?php } ?>
+            <!-- end flash -->
+
                 <table class="table table-bordered table-stripped" id="table-dinas">
                     <thead>
                         <tr>

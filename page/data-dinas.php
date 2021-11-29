@@ -1,26 +1,33 @@
 <?php
     if(isset($_POST['save-dinas']) || isset($_POST['update-dinas'])) {
-        $dinas      = $_POST['dinas'];
-        $jml_polri  = $_POST['polri'];
-        $jml_pns    = $_POST['pns'];
+        $dinas = $_POST['dinas'];
 
-        if(isset($_POST['save-dinas'])) {
-            $sql = "INSERT INTO tb_dinas SET dinas='$dinas', jml_polri='$jml_polri', jml_pns='$jml_pns'";
-        }else {
-            $id = $_POST['id'];
-            $sql = "UPDATE tb_dinas SET dinas='$dinas', jml_polri='$jml_polri', jml_pns='$jml_pns' WHERE id=$id";
-        }
+        $validation = $conn->query("SELECT * FROM tb_dinas WHERE dinas = '$dinas'");
+        if(is_null($validation->fetch_assoc())) {
+            $jml_polri  = ($_POST['polri'] == "") ? '0' : $_POST['polri'];
+            $jml_pns    = ($_POST['pns'] == "") ? '0' : $_POST['pns'];
 
-        $query = $conn->query($sql);
-
-        if($query) {
             if(isset($_POST['save-dinas'])) {
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil ditambahkan";
-            }else{
-                $_SESSION['SUCCESS'] = time();
-                $flash_success = "Data berhasil diubah";
+                $sql = "INSERT INTO tb_dinas SET dinas='$dinas', jml_polri='$jml_polri', jml_pns='$jml_pns'";
+            }else {
+                $id = $_POST['id'];
+                $sql = "UPDATE tb_dinas SET dinas='$dinas', jml_polri='$jml_polri', jml_pns='$jml_pns' WHERE id=$id";
             }
+
+            $query = $conn->query($sql);
+
+            if($query) {
+                if(isset($_POST['save-dinas'])) {
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil ditambahkan";
+                }else{
+                    $_SESSION['SUCCESS'] = time();
+                    $flash_success = "Data berhasil diubah";
+                }
+            }
+        }else {
+            $_SESSION['ERROR'] = time();
+            $flash_error = 'Data dinas sudah ada!';
         }
     }
 
@@ -37,6 +44,9 @@
 
     if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
         unset($_SESSION['SUCCESS']);
+    }
+    if (isset($_SESSION['ERROR']) && (time() - $_SESSION['ERROR'] > 3)) {
+        unset($_SESSION['ERROR']);
     }
 
     $data = $conn->query("SELECT * FROM tb_dinas");
@@ -55,11 +65,20 @@
                     <i class="fa fa-plus"></i> Tambah Data</button>
             </div>
             <div class="card-body">
+
+            <!-- flash messages -->
             <?php if(isset($_SESSION['SUCCESS'])) { ?>
             <div class="alert alert-success text-dark flash" role="alert">
                 <?= $flash_success ?>
             </div>
             <?php } ?>
+            <?php if(isset($_SESSION['ERROR'])) { ?>
+            <div class="alert alert-danger text-dark flash" role="alert">
+                <?= $flash_error ?>
+            </div>
+            <?php } ?>
+            <!-- end flash -->
+
                 <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
                     <thead>
                         <tr>

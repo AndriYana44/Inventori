@@ -108,13 +108,13 @@ if($_SESSION['login'] != 'login') {
                     </li>
                     <li class="nav-label">Laporan</li>
                     <li>
-                        <a href="?page=laporan_pdf" aria-expanded="false">
+                        <a href="./laporan/laporan-pdf.php" target="_blank" aria-expanded="false">
                             <i class="icon icon-app-store"></i>
                             <span class="nav-text">Laporan PDF</span>
                         </a>
                     </li>
                     <li>
-                        <a href="?page=laporan_excel" aria-expanded="false">
+                        <a href="?page=laporan-excel" aria-expanded="false">
                             <i class="icon icon-app-store"></i>
                             <span class="nav-text">Laporan Excel</span>
                         </a>

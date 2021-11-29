@@ -90,12 +90,6 @@ $html = '
 $html .= '</table>
 </div>
 <div class="ttd">
-    <div class="kabag">
-        <h6>Mengetahui</h6>
-        <h6>KABAG SUMDA</h6>
-        <h6 class="kabag-name">HIDA TJAHJONO, S.H</h6>
-        <h6>KONPOL NRP 75020681</h6>
-    </div>
     <div class="kasubag">
         <h6>Bogor, ' . date("Y-m-d") . '</h6>
         <h6>KASUBAG SARPRAS</h6>

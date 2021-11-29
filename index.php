@@ -61,14 +61,6 @@ if($_SESSION['login'] != 'login') {
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="./app-profile.html" class="dropdown-item">
-                                        <i class="icon-user"></i>
-                                        <span class="ml-2">Profile </span>
-                                    </a>
-                                    <a href="./email-inbox.html" class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
                                     <a href="./logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
@@ -114,7 +106,7 @@ if($_SESSION['login'] != 'login') {
                         </a>
                     </li>
                     <li>
-                        <a href="?page=laporan-excel" aria-expanded="false">
+                        <a href="./laporan/laporan-excel.php" aria-expanded="false">
                             <i class="icon icon-app-store"></i>
                             <span class="nav-text">Laporan Excel</span>
                         </a>

@@ -191,7 +191,7 @@
                         <input type="number" name="baju_provos_pria" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="baju_provos_wanita">Baju Provos Pria</label>
+                        <label for="baju_provos_wanita">Baju Provos Wanita</label>
                         <input type="number" name="baju_provos_wanita" class="form-control" autocomplete="off">
                     </div>
                 </div>

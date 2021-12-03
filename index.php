@@ -61,7 +61,11 @@ if($_SESSION['login'] != 'login') {
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="./logout.php" class="dropdown-item">
+                                    <a href="?page=profile" class="dropdown-item py-3">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="./logout.php" class="dropdown-item py-3">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>

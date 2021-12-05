@@ -7,16 +7,123 @@ $sql_join_table = "SELECT DISTINCT tb_dinas.dinas, tb_dinas.id
     INNER JOIN tb_perlengkapan_badan ON tb_dinas.id = tb_perlengkapan_badan.id_dinas
     INNER JOIN tb_perlengkapan_kepala ON tb_dinas.id = tb_perlengkapan_kepala.id_dinas";
 
+
 $dinas = $conn->query($sql_join_table);
 $data = $dinas->fetch_array();
+
+if(isset($_POST['submit'])) {
+    $dinas = $_POST['dinas'];  
+
+    // perlengkapan kaki
+    $pdl_staf = $_POST['pdl_staf'];
+    $olahraga = $_POST['olahraga'];  
+    $kaos_kaki = $_POST['kaos_kaki'];
+    
+    $query_perlengkapan_kaki = $conn->query("SELECT * FROM tb_perlengkapan_kaki where id_dinas=$dinas");
+    $data_perlengkapan_kaki = $query_perlengkapan_kaki->fetch_assoc();
+
+    $pdl_staf_update = $data_perlengkapan_kaki['pdl_staf'] - $pdl_staf;
+    $olahraga_update = $data_perlengkapan_kaki['olahraga'] - $olahraga;
+    $kaos_kaki_update = $data_perlengkapan_kaki['kaos_kaki'] - $kaos_kaki;
+    $sql_update1 = "UPDATE tb_perlengkapan_kaki SET 
+        pdl_staf = '$pdl_staf_update', 
+        olahraga = '$olahraga_update', 
+        kaos_kaki = '$kaos_kaki_update' 
+        WHERE id_dinas = $dinas";
+    $query_update1 = $conn->query($sql_update1);
+
+    // perlengkapan badan
+    $sabhara = $_POST['sabhara'];  
+    $lantas = $_POST['lantas'];
+    $jaket_staf_pria = $_POST['jaket_staf_pria'];
+    $jaket_staf_wanita = $_POST['jaket_staf_wanita'];
+    $baju_sabhara_pria = $_POST['baju_sabhara_pria'];
+    $baju_sabhara_wanita = $_POST['baju_sabhara_wanita'];
+    $baju_provos_pria = $_POST['baju_provos_pria'];
+    $baju_provos_wanita = $_POST['baju_provos_wanita'];
+
+    $query_perlengkapan_badan = $conn->query("SELECT * FROM tb_perlengkapan_badan where id_dinas=$dinas");
+    $data_perlengkapan_badan = $query_perlengkapan_badan->fetch_assoc();
+
+    $sabhara_update = $data_perlengkapan_badan['sabhara'] - $sabhara;
+    $lantas_update = $data_perlengkapan_badan['lantas'] - $lantas;
+    $jaket_staf_pria_update = $data_perlengkapan_badan['jaket_staf_pria'] - $jaket_staf_pria;
+    $jaket_staf_wanita_update = $data_perlengkapan_badan['jaket_staf_wanita'] - $jaket_staf_wanita;
+    $baju_sabhara_pria_update = $data_perlengkapan_badan['baju_sabhara_pria'] - $baju_sabhara_pria;
+    $baju_sabhara_wanita_update = $data_perlengkapan_badan['baju_sabhara_wanita'] - $baju_sabhara_wanita;
+    $baju_provos_pria_update = $data_perlengkapan_badan['baju_provos_pria'] - $baju_provos_pria;
+    $baju_provos_wanita_update = $data_perlengkapan_badan['baju_provos_wanita'] - $baju_provos_wanita;
+    $sql_update2 = "UPDATE tb_perlengkapan_badan SET 
+        sabhara = '$sabhara_update',
+        lantas = '$lantas_update',
+        jaket_staf_pria = '$jaket_staf_pria_update',
+        jaket_staf_wanita = '$jaket_staf_wanita_update',
+        baju_sabhara_pria = '$baju_sabhara_pria_update',
+        baju_sabhara_wanita = '$baju_sabhara_wanita_update',
+        baju_provos_pria = '$baju_provos_pria_update',
+        baju_provos_wanita = '$baju_provos_wanita_update'
+        WHERE id_dinas = $dinas";
+    $query_update2 = $conn->query($sql_update2);
+
+    
+    // perlengkapan kepala
+    $jilbab_polwan = $_POST['jilbab_polwan'];
+    $jilbab_pns = $_POST['jilbab_pns'];
+    $jilbab_reskrim = $_POST['jilbab_reskrim'];
+    $topi_gol_1 = $_POST['topi_gol_1'];
+    $topi_gol_2 = $_POST['topi_gol_2'];
+    $topi_gol_3 = $_POST['topi_gol_3'];
+
+    $query_perlengkapan_kepala = $conn->query("SELECT * FROM tb_perlengkapan_kepala where id_dinas=$dinas");
+    $data_perlengkapan_kepala = $query_perlengkapan_kepala->fetch_assoc();
+
+    $jilbab_polwan_update = $data_perlengkapan_kepala['jilbab_polwan'] - $jilbab_polwan;
+    $jilbab_pns_update = $data_perlengkapan_kepala['jilbab_pns'] - $jilbab_pns;
+    $jilbab_reskrim_update = $data_perlengkapan_kepala['jilbab_reskrim'] - $jilbab_reskrim;
+    $topi_gol_1_update = $data_perlengkapan_kepala['topi_gol_1'] - $topi_gol_1;
+    $topi_gol_2_update = $data_perlengkapan_kepala['topi_gol_2'] - $topi_gol_2;
+    $topi_gol_3_update = $data_perlengkapan_kepala['topi_gol_3'] - $topi_gol_3;
+    $sql_update3 = "UPDATE tb_perlengkapan_kepala SET 
+        jilbab_polwan = '$jilbab_polwan_update', 
+        jilbab_pns = '$jilbab_pns_update',
+        jilbab_reskrim = '$jilbab_reskrim_update',
+        topi_gol_1 = '$topi_gol_1_update',
+        topi_gol_2 = '$topi_gol_2_update',
+        topi_gol_3 = '$topi_gol_3_update'
+        WHERE id_dinas = $dinas";
+    $query_update3 = $conn->query($sql_update3);
+
+    // insert into barang keluar
+    $sql_insert = "INSERT INTO barang_keluar SET 
+        id_dinas='$dinas', 
+        pdl_staf='$pdl_staf', 
+        olahraga='$olahraga', 
+        kaos_kaki='$kaos_kaki',
+        sabhara='$sabhara', 
+        lantas='$lantas', 
+        jaket_staf_pria='$jaket_staf_pria', 
+        jaket_staf_wanita='$jaket_staf_wanita', 
+        baju_sabhara_pria='$baju_sabhara_pria', 
+        baju_sabhara_wanita='$baju_sabhara_wanita', 
+        baju_provos_pria='$baju_provos_pria', 
+        baju_provos_wanita='$baju_provos_wanita',
+        jilbab_polwan='$jilbab_polwan', 
+        jilbab_pns='$jilbab_pns', 
+        jilbab_reskrim='$jilbab_reskrim', 
+        topi_gol_1='$topi_gol_1', 
+        topi_gol_2='$topi_gol_2', 
+        topi_gol_3='$topi_gol_3'";
+    $query_insert = $conn->query($sql_insert);
+
+    if($query_insert) {
+        header('location: ?page=barang-keluar');
+        $_SESSION['SUCCESS'] = time();
+        $_SESSION['message'] = 'Data berhasil ditambahkan';
+    }
+}
 ?>
 
-<style>
-    .form-group .input-group input.form-control {
-        z-index: 1;
-    }
-</style>
-
+<style>.form-group .input-group input.form-control { z-index: 1 }</style>
 <div class="row">
     <div class="col-12">
         <div class="card px-3 py-3">
@@ -212,7 +319,7 @@ $data = $dinas->fetch_array();
                                 </div>
                             </div>
                             <div class="form-group mt-4 ml-3">
-                                <button class="btn btn-primary" type="submit">Sumbit</button>
+                                <button class="btn btn-primary" name="submit" type="submit">Sumbit</button>
                             </div>
                         </form>
                     </div>
@@ -226,6 +333,7 @@ $data = $dinas->fetch_array();
     $(function() {
         const _url = window.location.protocol + "//" + window.location.host;
         $('#dinas').change(function () { 
+            $('input[type=number]').each((idx, res) => $(res).attr('value', 0));
             $.get(`${_url}/page/data-json/barang-keluar.php?dinas=${$(this).val()}`, function(res) {
                 const obj = JSON.parse(res);
                 // perlengkapan kaki
@@ -274,9 +382,17 @@ $data = $dinas->fetch_array();
         // jika value lebih besar dari jumlah stok
         (function checkValue() {
             $('#form-barang-keluar').submit(function(e) {
-                e.preventDefault();
+                // jika value == ''? maka akan di set ke nol (0)
+                $('input[type=number]').each((idx, res) => {
+                    if($(res).val() == '') {
+                        $(res).attr('value', 0);
+                    }
+                });
+
+                // jika value lebih besar dari stok, maka akan divalidasi
                 $('.text_validation').each(function(idx, res) {
                     if($(this).attr('id') != undefined) {
+                        e.preventDefault();
                         var targetEle = this.hash;
                         var $targetEle = $(`#${$(this).attr('id')}`);
                     

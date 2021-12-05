@@ -1,9 +1,38 @@
 <?php 
 require_once "./connection.php";
-$query1 = $conn->query("SELECT * FROM barang_keluar");
+$query1 = $conn->query("SELECT barang_keluar.*, tb_dinas.dinas, tb_dinas.jml_polri, tb_dinas.jml_pns FROM barang_keluar INNER JOIN tb_dinas ON tb_dinas.id = barang_keluar.id_dinas");
 $data = $query1->fetch_assoc();
+
+if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
+    unset($_SESSION['SUCCESS']);
+}
 ?>
 
+<style>
+    .switch {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: #343957;
+        margin-bottom: -10px;
+    }
+    .switch span {
+        color: #FFF;
+        width: 33.3%;
+        padding: 10px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: .3s;
+    }
+    .switch span:hover, .switch span.active {
+        background-color: #555;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    }
+    .switch span:nth-child(-n+2) {
+        border-right: 1px solid #aaa;
+    }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card px-3 py-3">
@@ -17,11 +46,18 @@ $data = $query1->fetch_assoc();
                     <i class="fa fa-plus"></i> Tambah Data</a>
             </div>
             <div class="card-body">
+            
+            <div class="switch">
+                <span class="switch-button active" data-target="kaki">Perlengkapan Kaki</span>
+                <span class="switch-button" data-target="badan">Perlengkapan Badan</span>
+                <span class="switch-button" data-target="kepala">Perlengkapan Kepala</span>
+            </div>
+            <hr>
 
             <!-- flash messages -->
             <?php if(isset($_SESSION['SUCCESS'])) { ?>
             <div class="alert alert-success text-dark flash" role="alert">
-                <?= $flash_success ?>
+                <?= $_SESSION['message'] ?>
             </div>
             <?php } ?>
             <?php if(isset($_SESSION['ERROR'])) { ?>
@@ -31,40 +67,156 @@ $data = $query1->fetch_assoc();
             <?php } ?>
             <!-- end flash -->
 
-                <table class="table table-bordered table-stripped" id="table-dinas" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Dinas</th>
-                            <th>Jumlah Polri</th>
-                            <th>Jumlah PNS</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $no = 1;
-                            foreach($data as $item) :
-                        ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $item['dinas'] ?></td>
-                            <td><?= $item['jml_polri'] ?></td>
-                            <td><?= $item['jml_pns'] ?></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#dinasEdit<?= $item['id'] ?>">Edit</button>
-                                <form action="" method="post" class="d-inline">
-                                    <input type="number" name="id" value="<?= $item['id'] ?>" hidden>
-                                    <button type="submit" name="delete-dinas" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <?php
-                            endforeach;
-                        ?>
-                    </tbody>
-                </table>
+                <div class="container">
+                    <div class="table-wrapper show" data-id="kaki">
+                        <table class="table table-bordered table-stripped" id="table-kaki" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Dinas</th>
+                                    <th>Sepatu Pdl Staf</th>
+                                    <th>Sepatu Olahraga</th>
+                                    <th>Kaos Kaki</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $no = 1;
+                                    foreach($query1 as $item) :
+                                ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $item['dinas'] ?></td>
+                                    <td><?= $item['pdl_staf'] ?></td>
+                                    <td><?= $item['olahraga'] ?></td>
+                                    <td><?= $item['kaos_kaki'] ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+                                <?php
+                                    endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-wrapper" data-id="badan">
+                        <table class="table table-bordered table-stripped" id="table-badan" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Dinas</th>
+                                    <th>Jas Hujan Sabhara</th>
+                                    <th>Jas Hujan Lantas</th>
+                                    <th>Jaket Staf Pria</th>
+                                    <th>Jaket Staf Wanita</th>
+                                    <th>Baju Sabhara Pria</th>
+                                    <th>Baju Sabhara Wanita</th>
+                                    <th>Baju Provos Pria</th>
+                                    <th>Baju Provos Wanita</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $no = 1;
+                                    foreach($query1 as $item) :
+                                ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $item['dinas'] ?></td>
+                                    <td><?= $item['sabhara'] ?></td>
+                                    <td><?= $item['lantas'] ?></td>
+                                    <td><?= $item['jaket_staf_pria'] ?></td>
+                                    <td><?= $item['jaket_staf_wanita'] ?></td>
+                                    <td><?= $item['baju_sabhara_pria'] ?></td>
+                                    <td><?= $item['baju_sabhara_wanita'] ?></td>
+                                    <td><?= $item['baju_provos_pria'] ?></td>
+                                    <td><?= $item['baju_provos_wanita'] ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+                                <?php
+                                    endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-wrapper" data-id="kepala">
+                        <table class="table table-bordered table-stripped" id="table-kepala" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Dinas</th>
+                                    <th>Jilbab Polwan</th>
+                                    <th>Jilbab PNS</th>
+                                    <th>Jilbab Reskrim</th>
+                                    <th>Topi PNS Gol 1</th>
+                                    <th>Topi PNS Gol 2</th>
+                                    <th>Topi PNS Gol 3</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $no = 1;
+                                    foreach($query1 as $item) :
+                                ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $item['dinas'] ?></td>
+                                    <td><?= $item['jilbab_polwan'] ?></td>
+                                    <td><?= $item['jilbab_pns'] ?></td>
+                                    <td><?= $item['jilbab_reskrim'] ?></td>
+                                    <td><?= $item['topi_gol_1'] ?></td>
+                                    <td><?= $item['topi_gol_2'] ?></td>
+                                    <td><?= $item['topi_gol_3'] ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+                                <?php
+                                    endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $('#table-badan').DataTable({
+            'scrollX': true,
+        })
+        $('#table-kaki').DataTable({
+            'scrollX': true,
+        })
+        $('#table-kepala').DataTable({
+            'scrollX': true,
+        })
+
+        $('.table-wrapper').each((idx, res) => $(res).hide());
+        $('.show').show();
+        $(document).click(function(e) {
+            if($(e.target).hasClass('switch-button')) {
+                $('.switch-button').each((idx, res) => $(res).removeClass('active'));
+                $(e.target).addClass('active');
+
+                let target = $(e.target).data('target');
+                $('.table-wrapper').each((idx, res) => $(res).hide());
+                $('.table-wrapper').each((idx, res) => $(res).data('id') == target ? $(res).fadeIn('slow') : $(res).fadeOut());
+            }
+        });
+    });
+</script>

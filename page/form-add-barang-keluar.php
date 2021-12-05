@@ -11,6 +11,12 @@ $dinas = $conn->query($sql_join_table);
 $data = $dinas->fetch_array();
 ?>
 
+<style>
+    .form-group .input-group input.form-control {
+        z-index: 1;
+    }
+</style>
+
 <div class="row">
     <div class="col-12">
         <div class="card px-3 py-3">
@@ -20,26 +26,28 @@ $data = $dinas->fetch_array();
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
-                        <form action="" method="post">
+                    <div class="card-body ml-4">
+                        <form action="" id="form-barang-keluar" method="post">
                             <div class="form-group">
                                 
                             </div>
 
-                            <div class="form-group">
-                                <label for="dinas">Dinas</label>
-                                <select class="select2" name="dinas" id="dinas" data-placeholder="Pilih dinas">
-                                    <option value="">Pilih dinas</option>
-                                    <?php foreach($dinas as $val) : ?>
-                                        <option value="<?= $val['id'] ?>"><?= $val['dinas'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="dinas">Dinas</label>
+                                    <select class="select2" name="dinas" id="dinas" data-placeholder="Pilih dinas">
+                                        <option value="">Pilih dinas</option>
+                                        <?php foreach($dinas as $val) : ?>
+                                            <option value="<?= $val['id'] ?>"><?= $val['dinas'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
 
                             <!-- check box kaki -->
-                            <div class="input-group">
-                                <input class="type" type="checkbox" id="pk" data-target="perlengkapan_kaki">
-                                <label class="ml-2" for="pk">Perlengkapan Kaki</label>
+                            <div class="input-group py-2">
+                                <input class="type mt-2" type="checkbox" id="pk" data-target="perlengkapan_kaki">
+                                <label class="ml-2 mt-2" for="pk" style="font-weight:900; color:#777;">Perlengkapan Kaki</label>
                             </div>
                             <div id="perlengkapan_kaki" class="row perlengkapan-wrapper">
                                 <div class="col-6 ml-3">
@@ -72,9 +80,9 @@ $data = $dinas->fetch_array();
                             </div>
 
                             <!-- checkbox badan -->
-                            <div class="input-group">
-                                <input class="type" type="checkbox" id="pb" data-target="perlengkapan_badan">
-                                <label class="ml-2" for="pb">Perlengkapan Badan</label>
+                            <div class="input-group py-2">
+                                <input class="type mt-2" type="checkbox" id="pb" data-target="perlengkapan_badan">
+                                <label class="ml-2 mt-2" for="pb" style="font-weight:900; color:#777;">Perlengkapan Badan</label>
                             </div>
                             <div id="perlengkapan_badan" class="row perlengkapan-wrapper">
                                 <div class="col-6 ml-3">
@@ -142,65 +150,69 @@ $data = $dinas->fetch_array();
                                         </div>
                                         <small class="text_validation text-danger"></small>
                                     </div>
+                                    <hr>
                                 </div>
                             </div>
 
                             <!-- checkbox kepala -->
-                            <div class="input-group">
-                                <input class="type" type="checkbox" id="pkp" data-target="perlengkapan_kepala">
-                                <label class="ml-2" for="pkp">Perlengkapan Kepala</label>
+                            <div class="input-group py-2">
+                                <input class="type mt-2" type="checkbox" id="pkp" data-target="perlengkapan_kepala">
+                                <label class="ml-2 mt-2" for="pkp" style="font-weight:900; color:#777;">Perlengkapan Kepala</label>
                             </div>
                             <div id="perlengkapan_kepala" class="row perlengkapan-wrapper">
                                 <div class="col-6 ml-3">
-                                <div class="form-group">
-                                    <label for="jilbab_polwan">Jilbab Polwan</label>
-                                    <div class="input-group">
-                                        <input type="text" id="jilbab_polwan" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="jilbab_polwan" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="jilbab_polwan">Jilbab Polwan</label>
+                                        <div class="input-group">
+                                            <input type="text" id="jilbab_polwan" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="jilbab_polwan" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jilbab_pns">Jilbab PNS</label>
-                                    <div class="input-group">
-                                        <input type="text" id="jilbab_pns" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="jilbab_pns" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="jilbab_pns">Jilbab PNS</label>
+                                        <div class="input-group">
+                                            <input type="text" id="jilbab_pns" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="jilbab_pns" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jilbab_reskrim">Jilbab Reskrim</label>
-                                    <div class="input-group">
-                                        <input type="text" id="jilbab_reskrim" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="jilbab_reskrim" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="jilbab_reskrim">Jilbab Reskrim</label>
+                                        <div class="input-group">
+                                            <input type="text" id="jilbab_reskrim" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="jilbab_reskrim" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="topi_gol_1">Topi PNS Gol 1</label>
-                                    <div class="input-group">
-                                        <input type="text" id="topi_gol_1" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="topi_gol_1" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="topi_gol_1">Topi PNS Gol 1</label>
+                                        <div class="input-group">
+                                            <input type="text" id="topi_gol_1" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="topi_gol_1" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="topi_gol_2">Topi PNS Gol 2</label>
-                                    <div class="input-group">
-                                        <input type="text" id="topi_gol_2" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="topi_gol_2" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="topi_gol_2">Topi PNS Gol 2</label>
+                                        <div class="input-group">
+                                            <input type="text" id="topi_gol_2" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="topi_gol_2" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="topi_gol_3">Topi PNS Gol 3</label>
-                                    <div class="input-group">
-                                        <input type="text" id="topi_gol_3" disabled class="mr-2 py-1 px-2 mb-1">
-                                        <input type="number" name="topi_gol_3" class="form-control" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="topi_gol_3">Topi PNS Gol 3</label>
+                                        <div class="input-group">
+                                            <input type="text" id="topi_gol_3" disabled class="mr-2 py-1 px-2 mb-1">
+                                            <input type="number" name="topi_gol_3" class="form-control" autocomplete="off">
+                                        </div>
+                                        <small class="text_validation text-danger"></small>
                                     </div>
-                                    <small class="text_validation text-danger"></small>
                                 </div>
-                                </div>
+                            </div>
+                            <div class="form-group mt-4 ml-3">
+                                <button class="btn btn-primary" type="submit">Sumbit</button>
                             </div>
                         </form>
                     </div>
@@ -249,14 +261,35 @@ $data = $dinas->fetch_array();
                 let el_validation = $(this).closest('.input-group').next('.text_validation');
                 if($(this).val() > parseInt(max)) {
                     el_validation.html('Tidak boleh melebihi stok');
-                    el_validation.attr('data-status', 'error');
+                    el_validation.attr('id', $(this).attr('name'));
                 }
                 if($(this).val() <= parseInt(max)) {
                     el_validation.html('');
-                    el_validation.removeAttr('data-status');
+                    el_validation.removeAttr('id');
+                    $(this).hasClass('is-invalid') ? $(this).removeClass('is-invalid') : false;
                 }
             });
         }
+
+        // jika value lebih besar dari jumlah stok
+        (function checkValue() {
+            $('#form-barang-keluar').submit(function(e) {
+                e.preventDefault();
+                $('.text_validation').each(function(idx, res) {
+                    if($(this).attr('id') != undefined) {
+                        var targetEle = this.hash;
+                        var $targetEle = $(`#${$(this).attr('id')}`);
+                    
+                        $(this).prev().find('input').addClass('is-invalid');
+                        $('html, body').stop().animate({
+                            'scrollTop': $targetEle.offset().top - ($targetEle.offset().top / 3)
+                        }, 500, 'swing', function () {
+                            window.location.hash = targetEle;
+                        });
+                    }
+                });
+            });
+        })();
 
         (function checkType() {
             $('.perlengkapan-wrapper').each((idx, res) => $(res).hide());
@@ -273,26 +306,6 @@ $data = $dinas->fetch_array();
             });
         })();
 
-        validationValue('input[name=pdl_staf]');
-        validationValue('input[name=olahraga]');
-        validationValue('input[name=kaos_kaki]');
-
-        // perlengkapan badan
-        validationValue('input[name=sabhara]');
-        validationValue('input[name=lantas]');
-        validationValue('input[name=jaket_staf_pria]');
-        validationValue('input[name=jaket_staf_wanita]');
-        validationValue('input[name=baju_sabhara_pria]');
-        validationValue('input[name=baju_sabhara_wanita]');
-        validationValue('input[name=baju_provos_pria]');
-        validationValue('input[name=baju_provos_wanita]');
-
-        // perlengkapan kepala
-        validationValue('input[name=jilbab_polwan]');
-        validationValue('input[name=jilbab_pns]');
-        validationValue('input[name=jilbab_reskrim]');
-        validationValue('input[name=topi_gol_1]');
-        validationValue('input[name=topi_gol_2]');
-        validationValue('input[name=topi_gol_3]');
+        $('input[type=number]').each((idx, res) => validationValue($(res)));
     });
 </script>

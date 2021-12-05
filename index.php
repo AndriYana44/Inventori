@@ -22,9 +22,10 @@ if($_SESSION['login'] != 'login') {
     <link href="./asset/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="./asset/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="asset/vendor/datatables/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="./fontawesome/css/all.min.csss">
     <link rel="stylesheet" href="./select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="./asset/css/app.css">
+
+    <script src="./jquery.js"></script>
 </head>
 
 <body>
@@ -101,6 +102,9 @@ if($_SESSION['login'] != 'login') {
                             <li><a href="?page=data-perlengkapan-kepala">Perlengkapan Kepala</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="?page=barang-keluar"><i class="icon icon-app-store"></i> Barang Keluar</a>
+                    </li>
                     </li>
                     <li class="nav-label">Laporan</li>
                     <li>
@@ -133,6 +137,7 @@ if($_SESSION['login'] != 'login') {
             </div>
         </div>
     </div>
+
     <script src="./asset/vendor/global/global.min.js"></script>
     <script src="./asset/js/quixnav-init.js"></script>
     <script src="./asset/js/custom.min.js"></script>

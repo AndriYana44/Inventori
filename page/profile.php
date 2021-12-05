@@ -76,7 +76,7 @@ if(isset($_POST['submit'])) {
                             <div class="row">
                                 <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                     <div class="profile-name">
-                                        <h4 class="text-primary"><?= $data['username'] ?></h4>
+                                        <h4 class="text-muted"><?= $data['username'] ?></h4>
                                         <p>Username</p>
                                     </div>
                                 </div>

@@ -116,9 +116,11 @@ if(isset($_POST['submit'])) {
     $query_insert = $conn->query($sql_insert);
 
     if($query_insert) {
-        header('location: ?page=barang-keluar');
         $_SESSION['SUCCESS'] = time();
         $_SESSION['message'] = 'Data berhasil ditambahkan';
+        echo "<script>
+                window.location.href = '?page=barang-keluar';
+              </script>";
     }
 }
 ?>
@@ -148,6 +150,7 @@ if(isset($_POST['submit'])) {
                                             <option value="<?= $val['id'] ?>"><?= $val['dinas'] ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <small class="text-danger validate-dinas"></small>
                                 </div>
                             </div>
 
@@ -379,6 +382,11 @@ if(isset($_POST['submit'])) {
             });
         }
 
+        // dinas remove validate
+        $('#dinas').change(function() {
+            $('.validate-dinas').html('');
+        });
+
         // jika value lebih besar dari jumlah stok
         (function checkValue() {
             $('#form-barang-keluar').submit(function(e) {
@@ -393,6 +401,7 @@ if(isset($_POST['submit'])) {
                 $('.text_validation').each(function(idx, res) {
                     if($(this).attr('id') != undefined) {
                         e.preventDefault();
+
                         var targetEle = this.hash;
                         var $targetEle = $(`#${$(this).attr('id')}`);
                     
@@ -402,6 +411,9 @@ if(isset($_POST['submit'])) {
                         }, 500, 'swing', function () {
                             window.location.hash = targetEle;
                         });
+                    }else if($('#dinas').val() == '') {
+                        e.preventDefault();
+                        $('.validate-dinas').html('Dinas tidak boleh kosong!');
                     }
                 });
             });

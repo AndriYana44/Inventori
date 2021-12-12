@@ -5,6 +5,20 @@ $query1 = $conn->query("SELECT barang_refund.*, tb_dinas.dinas FROM barang_refun
     INNER JOIN tb_dinas ON tb_dinas.id = barang_keluar.id_dinas");
 $data = $query1->fetch_assoc();
 
+if(isset($_GET['delete'])) {
+    $id_delete = $_GET['delete'];
+    $sql_delete = "DELETE FROM barang_refund WHERE id = $id_delete";
+    $query_delete = $conn->query($sql_delete);
+    
+    if($query_delete) {
+        $_SESSION['SUCCESS'] = time();
+        $_SESSION['message'] = 'Data berhasil dihapus';
+        echo "<script>
+                window.location.href = '?page=barang-refund';
+              </script>";
+    }
+}
+
 if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
     unset($_SESSION['SUCCESS']);
 }
@@ -92,7 +106,7 @@ if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
                                     <td><?= $item['olahraga'] ?></td>
                                     <td><?= $item['kaos_kaki'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a onclick="return confirm('Lanjukan menghapus data?')" href="?page=barang-refund&&delete=<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                                 <?php
@@ -136,7 +150,7 @@ if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
                                     <td><?= $item['baju_provos_pria'] ?></td>
                                     <td><?= $item['baju_provos_wanita'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a onclick="return confirm('Lanjukan menghapus data?')" href="?page=barang-refund&&delete=<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                                 <?php
@@ -176,7 +190,7 @@ if (isset($_SESSION['SUCCESS']) && (time() - $_SESSION['SUCCESS'] > 3)) {
                                     <td><?= $item['topi_gol_2'] ?></td>
                                     <td><?= $item['topi_gol_3'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a onclick="return confirm('Lanjukan menghapus data?')" href="?page=barang-refund&&delete=<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                                 <?php

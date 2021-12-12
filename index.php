@@ -103,10 +103,10 @@ if($_SESSION['login'] != 'login') {
                         </ul>
                     </li>
                     <li>
-                        <a href="?page=barang-refund"><i class="icon icon-app-store"></i> Barang Refund</a>
+                        <a href="?page=barang-keluar"><i class="icon icon-app-store"></i> Barang Keluar</a>
                     </li>
                     <li>
-                        <a href="?page=barang-keluar"><i class="icon icon-app-store"></i> Barang Keluar</a>
+                        <a href="?page=barang-refund"><i class="icon icon-app-store"></i> Barang Refund</a>
                     </li>
                     </li>
                     <li class="nav-label">Laporan</li>
